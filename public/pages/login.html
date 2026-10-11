@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sign in · MBMS</title>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+  <script>
+    try {
+      if (localStorage.getItem('MBMS_LANG') === 'fa') {
+        document.documentElement.lang = 'fa';
+        document.documentElement.dir = 'rtl';
+        var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
+        if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
+
+      }
+    } catch (err) {}
+  </script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-layout="auth" data-page="login">
+  <main class="auth-screen">
+    <section class="mbms-card card auth-card">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="../assets/images/logo.svg" alt="" width="36" height="36">
+          <div>
+            <div class="fw-bold">MBMS</div>
+            <div class="small text-secondary">Sign in to continue</div>
+          </div>
+        </div>
+
+        <p class="small text-secondary mb-3">
+          Choose your province, then your email. Each province can be used by only one user. All users still see the same shared activity.
+        </p>
+
+        <div class="alert alert-danger" id="login-server-error" hidden></div>
+
+        <form id="login-form" novalidate>
+          <div class="mbms-field">
+            <label class="form-label" for="location_id">Province</label>
+            <select class="form-select" id="location_id" name="location_id" required>
+              <option value="">Loading provinces…</option>
+            </select>
+            <div class="invalid-feedback" data-error-for="location_id">Choose a province.</div>
+          </div>
+
+          <div class="mbms-field">
+            <label class="form-label" for="email">Email</label>
+            <select class="form-select" id="email" name="email" required>
+              <option value="">Loading emails…</option>
+            </select>
+            <div class="invalid-feedback" data-error-for="email">Choose your email.</div>
+          </div>
+
+          <div class="mbms-field">
+            <label class="form-label" for="password">Password</label>
+            <div class="mbms-password-wrap">
+              <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
+              <button type="button" class="btn btn-outline-secondary mbms-password-toggle" id="toggle-password" aria-label="Show password">Show</button>
+            </div>
+            <div class="invalid-feedback" data-error-for="password">Password is required.</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mbms-btn-block mt-3">Sign in</button>
+        </form>
+
+        <p class="small text-secondary mt-3 mb-0">
+          After sign-in, your email and province are stored on your Settings profile. Passwords stay on the server only.
+          <a href="../index.html">View dashboard UI</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script defer src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>window.MBMS_BASE_PATH = '..';</script>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/i18n.js"></script>
+  <script defer src="../assets/js/api.js"></script>
+  <script defer src="../assets/js/bridge.js"></script>
+  <script defer src="../assets/js/utils.js"></script>
+  <script defer src="../assets/js/ui.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/auth.js"></script>
+  <script defer src="../assets/js/layout.js"></script>
+  <script defer src="../assets/js/pages/login.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+</body>
+</html>

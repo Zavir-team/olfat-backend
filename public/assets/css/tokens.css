@@ -1,0 +1,61 @@
+/* MBMS design tokens. One color system for the whole application. */
+
+:root {
+  --mbms-font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mbms-primary: #1d4ed8;
+  --mbms-primary-hover: #1e40af;
+  --mbms-primary-soft: #eff4ff;
+  --mbms-secondary: #4b5563;
+  --mbms-bg: #f3f5f8;
+  --mbms-surface: #ffffff;
+  --mbms-text: #111827;
+  --mbms-muted: #4b5563;
+  --mbms-border: #e5e7eb;
+  --mbms-success: #047857;
+  --mbms-success-soft: #ecfdf5;
+  --mbms-danger: #b91c1c;
+  --mbms-danger-soft: #fef2f2;
+  --mbms-warning: #b45309;
+  --mbms-warning-soft: #fff7ed;
+  --mbms-info: #0369a1;
+  --mbms-info-soft: #f0f9ff;
+  --mbms-focus: rgba(29, 78, 216, 0.18);
+  --mbms-radius: 0.75rem;
+  --mbms-radius-sm: 0.5rem;
+  --mbms-shadow: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --mbms-header-h: 56px;
+  --mbms-bottom-nav-h: 68px;
+  --mbms-sidebar-w: 272px;
+  --mbms-touch: 44px;
+  --mbms-space: 1rem;
+  --mbms-text-xs: 0.8125rem;
+  --mbms-text-sm: 0.875rem;
+  --mbms-text-md: 1rem;
+  --mbms-text-lg: 1.25rem;
+  --mbms-text-xl: 1.4rem;
+
+  --bs-primary: #1d4ed8;
+  --bs-primary-rgb: 29, 78, 216;
+  --bs-success: #047857;
+  --bs-danger: #b91c1c;
+  --bs-warning: #b45309;
+  --bs-info: #0369a1;
+  --bs-body-font-family: var(--mbms-font);
+  --bs-body-color: var(--mbms-text);
+  --bs-body-bg: var(--mbms-bg);
+  --bs-border-color: var(--mbms-border);
+  --bs-border-radius: var(--mbms-radius-sm);
+  --bs-link-color: var(--mbms-primary);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--mbms-font);
+  color: var(--mbms-text);
+  background: var(--mbms-bg);
+  -webkit-tap-highlight-color: transparent;
+}

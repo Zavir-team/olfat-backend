@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sale Bill · MBMS</title>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+  <script>
+    try {
+      if (localStorage.getItem('MBMS_LANG') === 'fa') {
+        document.documentElement.lang = 'fa';
+        document.documentElement.dir = 'rtl';
+        var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
+        if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
+      }
+    } catch (err) {}
+  </script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/bill.css">
+</head>
+<body class="bill-page" data-layout="auth" data-page="bill">
+  <div class="bill-toolbar bill-no-print">
+    <div class="d-flex align-items-center gap-2">
+      <a class="btn btn-outline-secondary btn-sm" id="bill-back" href="sales.html">Back to sales</a>
+      <span class="small text-secondary" id="bill-toolbar-title">Sale bill</span>
+    </div>
+    <div class="bill-toolbar-actions">
+      <button type="button" class="btn btn-outline-primary btn-sm" id="bill-whatsapp">
+        <i class="bi bi-whatsapp"></i> WhatsApp
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" id="bill-print">
+        <i class="bi bi-printer"></i> Print / PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger bill-error" id="bill-error" hidden></div>
+
+  <div class="bill-shell" id="bill-root" hidden>
+    <article class="bill-paper" id="bill-paper">
+      <header class="bill-header">
+        <div class="bill-brand">
+          <img class="bill-logo" src="../assets/images/logo.svg" alt="">
+          <div>
+            <h1 class="bill-brand-name" id="bill-business-name">Olfat Business Management</h1>
+            <p class="bill-brand-tag" id="bill-business-tag">Sales Invoice</p>
+            <p class="bill-brand-tag" id="bill-business-contact"></p>
+          </div>
+        </div>
+        <div class="bill-meta-box">
+          <div class="bill-doc-label">Invoice</div>
+          <p><strong>Bill No:</strong> <span id="bill-number">—</span></p>
+          <p><strong>Date:</strong> <span id="bill-date">—</span></p>
+          <p><strong>Province:</strong> <span id="bill-province">—</span></p>
+          <p><span class="bill-status" id="bill-status">—</span></p>
+        </div>
+      </header>
+
+      <section class="bill-parties">
+        <div class="bill-party">
+          <h2>Bill To</h2>
+          <p class="bill-party-name" id="bill-customer-name">—</p>
+          <p id="bill-customer-phone"></p>
+          <p id="bill-customer-address"></p>
+        </div>
+        <div class="bill-party">
+          <h2>Issued By</h2>
+          <p class="bill-party-name" id="bill-seller-name">—</p>
+          <p id="bill-seller-province"></p>
+          <p id="bill-payment-type"></p>
+        </div>
+      </section>
+
+      <div class="bill-table-wrap">
+        <table class="bill-table">
+          <thead>
+            <tr>
+              <th style="width: 3rem;">#</th>
+              <th>Item</th>
+              <th class="num">Qty</th>
+              <th class="num">Unit Price</th>
+              <th class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="bill-items-body">
+            <tr><td colspan="5" class="text-secondary">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bill-totals">
+        <div class="bill-totals-card">
+          <div class="bill-totals-row">
+            <span>Subtotal</span>
+            <span id="bill-subtotal">—</span>
+          </div>
+          <div class="bill-totals-row">
+            <span>Paid</span>
+            <span id="bill-paid">—</span>
+          </div>
+          <div class="bill-totals-row">
+            <span>Remaining</span>
+            <span id="bill-remaining">—</span>
+          </div>
+          <div class="bill-totals-row is-grand">
+            <span>Total</span>
+            <span id="bill-total">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bill-notes" id="bill-notes-wrap" hidden>
+        <strong>Notes:</strong>
+        <span id="bill-notes"></span>
+      </div>
+
+      <section class="bill-sign">
+        <div class="bill-sign-box">Customer signature</div>
+        <div class="bill-sign-box">Authorized signature</div>
+      </section>
+
+      <footer class="bill-footer">
+        <p class="bill-footer-note" id="bill-footer-note">Thank you for your business. Please keep this bill for your records.</p>
+        <p class="bill-footer-meta" id="bill-footer-meta"></p>
+      </footer>
+    </article>
+  </div>
+
+  <script>window.MBMS_BASE_PATH = '..';</script>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/i18n.js"></script>
+  <script defer src="../assets/js/api.js"></script>
+  <script defer src="../assets/js/bridge.js"></script>
+  <script defer src="../assets/js/utils.js"></script>
+  <script defer src="../assets/js/ui.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/auth.js"></script>
+  <script defer src="../assets/js/pages/bill-page.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+</body>
+</html>

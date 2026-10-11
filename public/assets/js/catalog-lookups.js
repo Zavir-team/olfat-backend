@@ -1,0 +1,92 @@
+/**
+ * Shared product/variant lookups for transaction forms.
+ * Values come from mock or later Laravel catalog APIs.
+ */
+(function (global) {
+  'use strict';
+
+  function mock() {
+    return global.MBMS_MOCK || {};
+  }
+
+  function saleCategories() {
+    return [
+      { id: 'tea', label: 'Tea' },
+      { id: 'rice', label: 'Rice' },
+      { id: 'detergents', label: 'Detergents' }
+    ];
+  }
+
+  function purchaseCategories() {
+    return saleCategories().concat([
+      { id: 'raw-materials', label: 'Raw Materials' },
+      { id: 'factory-materials', label: 'Factory Materials' }
+    ]);
+  }
+
+  function products(category) {
+    var data = mock();
+    if (category === 'tea') {
+      return (data.tea && data.tea.types) || [];
+    }
+    if (category === 'rice') {
+      return (data.rice && data.rice.types) || [];
+    }
+    if (category === 'detergents') {
+      return (data.detergents && data.detergents.products) || [];
+    }
+    if (category === 'raw-materials') {
+      return (data.rawMaterials || []).concat(global.MBMS_RECORDS ? global.MBMS_RECORDS.storeList('rawMaterials') : []);
+    }
+    if (category === 'factory-materials') {
+      return (data.factoryMaterials || []).concat(global.MBMS_RECORDS ? global.MBMS_RECORDS.storeList('factoryMaterials') : []);
+    }
+    return [];
+  }
+
+  function variants(category, productId) {
+    var product = products(category).filter(function (row) {
+      return String(row.id) === String(productId);
+    })[0];
+    if (product && product.units && product.units.length) {
+      return product.units;
+    }
+    var data = mock();
+    if (category === 'tea') {
+      return ((data.tea && data.tea.sizes) || []).map(function (row) {
+        return { id: row.id, label: row.label };
+      });
+    }
+    if (category === 'rice') {
+      return ((data.rice && data.rice.sizes) || []).map(function (row) {
+        return { id: row.id, label: row.label };
+      });
+    }
+    if (category === 'detergents') {
+      var product = products('detergents').filter(function (row) { return row.id === productId; })[0];
+      return (product && product.units) || [];
+    }
+    if (category === 'raw-materials' || category === 'factory-materials') {
+      var item = products(category).filter(function (row) { return row.id === productId; })[0];
+      return (item && item.units) || [];
+    }
+    return [];
+  }
+
+  function customers() {
+    return (mock().customers || []).concat(global.MBMS_RECORDS ? global.MBMS_RECORDS.storeList('customers') : []);
+  }
+
+  function suppliers() {
+    return (mock().suppliers || []).concat(global.MBMS_RECORDS ? global.MBMS_RECORDS.storeList('suppliers') : []);
+  }
+
+  global.MBMS_CATALOG = {
+    saleCategories: saleCategories,
+    purchaseCategories: purchaseCategories,
+    products: products,
+    variants: variants,
+    customers: customers,
+    suppliers: suppliers
+  };
+})(window);

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Payments · MBMS</title>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+  <script>
+    try {
+      if (localStorage.getItem('MBMS_LANG') === 'fa') {
+        document.documentElement.lang = 'fa';
+        document.documentElement.dir = 'rtl';
+        var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
+        if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
+}
+    } catch (err) {}
+  </script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-page="payments">
+  <div id="page-content">
+    <div id="pay-root">
+      <div class="alert alert-warning mbms-source-banner" id="source-banner" hidden></div>
+      <div class="mbms-page-header">
+        <div>
+          <h1 id="pay-title">Payments</h1>
+          <p>Customer and supplier payments. Official balances stay on the backend.</p>
+        </div>
+        <div class="mbms-page-actions">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal">New payment</button>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <a class="btn btn-outline-primary" data-pay-tab="customer" href="payments.html">Customer payments</a>
+        <a class="btn btn-outline-primary" data-pay-tab="supplier" href="payments.html?type=supplier">Supplier payments</a>
+      </div>
+      <div class="mbms-toolbar">
+        <input class="form-control mbms-search" id="module-search" type="search" placeholder="Search payments">
+      </div>
+      <div id="pay-empty" hidden></div>
+      <div class="table-responsive" id="pay-table-wrap">
+        <table class="table mbms-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Person / entity</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>User</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="pay-list-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="payModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="pay-form" novalidate>
+          <div class="modal-header">
+            <h2 class="modal-title h5">Record payment</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mbms-field">
+              <label class="form-label" for="pay-person" id="party-label">Customer</label>
+              <select class="form-select" id="pay-person" name="person" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="pay-amount">Amount</label>
+              <input class="form-control" id="pay-amount" name="amount" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="pay-date">Date</label>
+              <input class="form-control" id="pay-date" name="date" type="date" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="pay-description">Description</label>
+              <textarea class="form-control" id="pay-description" name="description" rows="2"></textarea>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="pay-location">Location</label>
+              <select class="form-select" id="pay-location" name="location" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="pay-user">User</label>
+              <input class="form-control" id="pay-user" name="user" value="Signed-in user" readonly>
+            </div>
+            <p class="mbms-help mb-0">Official balances stay on Laravel. This form does not calculate them.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="pay-reset">Reset</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save payment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>window.MBMS_BASE_PATH = '..';</script>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/i18n.js"></script>
+  <script defer src="../assets/js/api.js"></script>
+  <script defer src="../assets/js/bridge.js"></script>
+  <script defer src="../assets/js/utils.js"></script>
+  <script defer src="../assets/js/ui.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/auth.js"></script>
+  <script defer src="../assets/js/layout.js"></script>
+  <script defer src="../assets/js/records.js"></script>
+  <script defer src="../assets/js/catalog-lookups.js"></script>
+  <script defer src="../assets/js/pages/payments-page.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+</body>
+</html>

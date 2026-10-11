@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Home Expenses · MBMS</title>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+  <script>
+    try {
+      if (localStorage.getItem('MBMS_LANG') === 'fa') {
+        document.documentElement.lang = 'fa';
+        document.documentElement.dir = 'rtl';
+        var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
+        if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
+}
+    } catch (err) {}
+  </script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-page="home-expenses">
+  <div id="page-content">
+    <div id="home-root">
+      <div class="alert mbms-home-banner" role="status">
+        Home expenses are personal/household spending. They are not business costs and do not affect Profit &amp; Loss on this frontend.
+      </div>
+      <div class="alert alert-warning mbms-source-banner" id="source-banner" hidden></div>
+
+      <div class="mbms-page-header">
+        <div>
+          <h1>Home Expenses</h1>
+          <p>Separate from business accounting. Visibility among users is still an open question.</p>
+        </div>
+        <div class="mbms-page-actions">
+          <button type="button" class="btn btn-primary" id="add-expense" data-bs-toggle="modal" data-bs-target="#expModal">Add expense</button>
+        </div>
+      </div>
+      <div class="mbms-toolbar">
+        <input class="form-control mbms-search" id="module-search" type="search" placeholder="Search home expenses">
+        <select class="form-select mbms-filter" id="list-category" aria-label="Category"></select>
+      </div>
+      <div id="exp-empty" hidden></div>
+      <div class="table-responsive" id="exp-table-wrap">
+        <table class="table mbms-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>User</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="exp-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="expModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="exp-form" novalidate>
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="exp-form-title">Add home expense</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id" id="exp-id">
+            <div class="mbms-field">
+              <label class="form-label" for="exp-category">Category</label>
+              <select class="form-select" id="exp-category" name="category" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="exp-description">Description</label>
+              <textarea class="form-control" id="exp-description" name="description" rows="2"></textarea>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="exp-amount">Amount</label>
+              <input class="form-control" id="exp-amount" name="amount" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="exp-date">Date</label>
+              <input class="form-control" id="exp-date" name="date" type="date" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="exp-user">User</label>
+              <input class="form-control" id="exp-user" name="user" value="Signed-in user" readonly>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="exp-reset">Reset</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save expense</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>window.MBMS_BASE_PATH = '..';</script>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/i18n.js"></script>
+  <script defer src="../assets/js/api.js"></script>
+  <script defer src="../assets/js/bridge.js"></script>
+  <script defer src="../assets/js/utils.js"></script>
+  <script defer src="../assets/js/ui.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/auth.js"></script>
+  <script defer src="../assets/js/layout.js"></script>
+  <script defer src="../assets/js/records.js"></script>
+  <script defer src="../assets/js/pages/home-expenses-page.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+</body>
+</html>

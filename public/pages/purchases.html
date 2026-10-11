@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Purchases · MBMS</title>
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+  <script>
+    try {
+      if (localStorage.getItem('MBMS_LANG') === 'fa') {
+        document.documentElement.lang = 'fa';
+        document.documentElement.dir = 'rtl';
+        var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
+        if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
+}
+    } catch (err) {}
+  </script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body data-page="purchases" data-transaction="purchases">
+  <div id="page-content">
+    <div id="tx-root">
+      <div class="alert alert-warning mbms-source-banner" id="source-banner" hidden></div>
+      <div class="mbms-page-header">
+        <div>
+          <h1>Purchases</h1>
+          <p>Reusable purchase form for Tea, Rice, Detergents, Raw Materials, and Factory Materials.</p>
+        </div>
+        <div class="mbms-page-actions">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#txModal">New purchase</button>
+        </div>
+      </div>
+      <div class="mbms-toolbar">
+        <input class="form-control mbms-search" id="module-search" type="search" placeholder="Search purchases">
+        <select class="form-select mbms-filter" id="list-category" aria-label="Category"></select>
+        <select class="form-select mbms-filter" id="list-location" aria-label="Location"></select>
+        <input class="form-control mbms-date" id="date-from" type="date" aria-label="From date">
+        <input class="form-control mbms-date" id="date-to" type="date" aria-label="To date">
+      </div>
+      <div id="tx-empty" hidden></div>
+      <div class="table-responsive" id="tx-table-wrap">
+        <table class="table mbms-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Product</th>
+              <th>Variant</th>
+              <th>Supplier</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="tx-list-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="txModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <form id="tx-form" novalidate>
+          <div class="modal-header">
+            <h2 class="modal-title h5">New purchase</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="mbms-help">Official payable amounts and stock changes are calculated by Laravel.</p>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-party">Supplier</label>
+              <select class="form-select" id="tx-party" name="party" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-category">Product category</label>
+              <select class="form-select" id="tx-category" name="category" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-product">Product</label>
+              <select class="form-select" id="tx-product" name="product" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-variant">Variant / unit</label>
+              <select class="form-select" id="tx-variant" name="variant" required></select>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-quantity">Quantity</label>
+              <input class="form-control" id="tx-quantity" name="quantity" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-price">Purchase price</label>
+              <input class="form-control" id="tx-price" name="price">
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-total">Total amount</label>
+              <input class="form-control" id="tx-total" name="total">
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-paid">Paid amount</label>
+              <input class="form-control" id="tx-paid" name="paid">
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-remaining">Remaining payable</label>
+              <input class="form-control" id="tx-remaining" name="remaining">
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-date">Date</label>
+              <input class="form-control" id="tx-date" name="date" type="date" required>
+            </div>
+            <div class="mbms-field">
+              <label class="form-label" for="tx-location">Location</label>
+              <select class="form-select" id="tx-location" name="location" required></select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="tx-reset">Reset</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save purchase</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>window.MBMS_BASE_PATH = '..';</script>
+  <script defer src="../assets/js/config.js"></script>
+  <script defer src="../assets/js/i18n.js"></script>
+  <script defer src="../assets/js/api.js"></script>
+  <script defer src="../assets/js/bridge.js"></script>
+  <script defer src="../assets/js/utils.js"></script>
+  <script defer src="../assets/js/ui.js"></script>
+  <script defer src="../assets/js/nav.js"></script>
+  <script defer src="../assets/js/auth.js"></script>
+  <script defer src="../assets/js/layout.js"></script>
+  <script defer src="../assets/js/records.js"></script>
+  <script defer src="../assets/js/catalog-lookups.js"></script>
+  <script defer src="../assets/js/pages/transaction-page.js"></script>
+  <script defer src="../assets/js/app.js"></script>
+</body>
+</html>
