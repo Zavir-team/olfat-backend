@@ -13,7 +13,7 @@
         document.documentElement.dir = 'rtl';
         var sheet = document.querySelector('link[href*="bootstrap.min.css"]');
         if (sheet) sheet.href = sheet.href.replace('bootstrap.min.css', 'bootstrap.rtl.min.css');
-}
+      }
     } catch (err) {}
   </script>
   <link rel="stylesheet" href="../assets/css/tokens.css">
@@ -27,7 +27,7 @@
       <div class="mbms-page-header">
         <div>
           <h1>Settings</h1>
-          <p>Change your login email and password here. Display options stay on this device.</p>
+          <p>Change your login email and password here. Admins can edit invoice branding below. Display options stay on this device.</p>
         </div>
       </div>
 
@@ -121,6 +121,137 @@
                 <div class="d-flex flex-wrap gap-2">
                   <button type="submit" class="btn btn-primary">Save API URL</button>
                   <button type="button" class="btn btn-outline-secondary" id="reset-api">Reset default</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <!-- =====================================================
+             Admin-only: Business identity (printed on invoices)
+             ===================================================== -->
+        <div class="col-12" id="business-section" hidden>
+          <section class="mbms-card card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-building"></i> Business identity (invoice header)</span>
+              <span class="badge text-bg-primary">Admin only</span>
+            </div>
+            <div class="card-body">
+              <form id="business-form" novalidate>
+                <div class="row g-3">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-legal-name">Legal business name</label>
+                    <input class="form-control" id="biz-legal-name" name="business.legal_name">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-tagline">Tagline / document caption</label>
+                    <input class="form-control" id="biz-tagline" name="business.tagline" placeholder="Sales Invoice">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-logo-url">Logo URL</label>
+                    <input class="form-control" id="biz-logo-url" name="business.logo_url" placeholder="/assets/images/logo.svg">
+                    <small class="text-secondary">Public URL or path relative to the site root.</small>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-tax-id">Tax ID / registration number</label>
+                    <input class="form-control" id="biz-tax-id" name="business.tax_id">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-address-1">Address line 1</label>
+                    <input class="form-control" id="biz-address-1" name="business.address_line1">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="biz-address-2">Address line 2</label>
+                    <input class="form-control" id="biz-address-2" name="business.address_line2">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-phone">Phone</label>
+                    <input class="form-control" id="biz-phone" name="business.phone">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-email">Email</label>
+                    <input class="form-control" id="biz-email" name="business.email" type="email">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-website">Website</label>
+                    <input class="form-control" id="biz-website" name="business.website">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-currency-code">Currency code</label>
+                    <input class="form-control" id="biz-currency-code" name="app.currency_code" placeholder="AFN">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-currency-symbol">Currency symbol</label>
+                    <input class="form-control" id="biz-currency-symbol" name="app.currency_symbol" placeholder="؋">
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="biz-currency-position">Currency position</label>
+                    <select class="form-select" id="biz-currency-position" name="app.currency_position">
+                      <option value="suffix">After amount — 100 ؋</option>
+                      <option value="prefix">Before amount — $ 100</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="mbms-help mt-3">These values print on every sale invoice header. Changes apply immediately for new bills.</p>
+                <button type="submit" class="btn btn-primary">Save business identity</button>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <!-- =====================================================
+             Admin-only: Invoice / bill content
+             ===================================================== -->
+        <div class="col-12" id="invoice-section" hidden>
+          <section class="mbms-card card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-receipt"></i> Invoice content (header note, footer, terms, bank)</span>
+              <span class="badge text-bg-primary">Admin only</span>
+            </div>
+            <div class="card-body">
+              <form id="invoice-form" novalidate>
+                <div class="row g-3">
+                  <div class="col-12 col-md-4">
+                    <label class="form-label" for="inv-prefix">Invoice number prefix</label>
+                    <input class="form-control" id="inv-prefix" name="invoice.prefix" placeholder="INV">
+                  </div>
+                  <div class="col-12 col-md-8">
+                    <label class="form-label" for="inv-header-note">Header note (optional)</label>
+                    <input class="form-control" id="inv-header-note" name="invoice.header_note">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="inv-footer-note">Footer note</label>
+                    <input class="form-control" id="inv-footer-note" name="invoice.footer_note" placeholder="Thank you for your business.">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="inv-terms">Terms &amp; conditions</label>
+                    <textarea class="form-control" id="inv-terms" name="invoice.terms" rows="4"></textarea>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="inv-bank">Bank / payment details</label>
+                    <textarea class="form-control" id="inv-bank" name="invoice.bank_details" rows="4" placeholder="Bank name, Account name, Account number"></textarea>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="inv-sign-customer">Customer signature label</label>
+                    <input class="form-control" id="inv-sign-customer" name="invoice.signature_customer_label" placeholder="Customer signature">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label" for="inv-sign-authorized">Authorized signature label</label>
+                    <input class="form-control" id="inv-sign-authorized" name="invoice.signature_authorized_label" placeholder="Authorized signature">
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="inv-watermark" name="invoice.show_watermark">
+                      <label class="form-check-label" for="inv-watermark">Show diagonal PAID / UNPAID / PARTIAL watermark on invoices</label>
+                    </div>
+                  </div>
+                </div>
+                <p class="mbms-help mt-3">Terms and bank details appear in the invoice footer. Signature labels print under the signature lines.</p>
+                <div class="d-flex flex-wrap gap-2">
+                  <button type="submit" class="btn btn-primary">Save invoice settings</button>
+                  <a class="btn btn-outline-secondary" href="bill.html" target="_blank" rel="noopener">
+                    <i class="bi bi-box-arrow-up-right"></i> Preview a bill
+                  </a>
                 </div>
               </form>
             </div>

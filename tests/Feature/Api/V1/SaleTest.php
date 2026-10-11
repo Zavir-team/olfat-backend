@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Api\V1;
 
+use App\Enums\StockMovementType;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\ProductVariant;
 use App\Models\StockBalance;
 use App\Models\User;
 use App\Services\Stock\StockService;
-use App\Enums\StockMovementType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -212,10 +212,30 @@ class SaleTest extends TestCase
         $id = $create->json('data.id');
 
         $this->getJson('/api/v1/sales')->assertOk();
+
+        // The show endpoint returns the flattened bill shape used by
+        // public/pages/bill.html: customer/location/seller as display names,
+        // *_raw numeric fields, and a flat items list.
         $this->getJson('/api/v1/sales/'.$id)
             ->assertOk()
             ->assertJsonPath('data.id', $id)
-            ->assertJsonStructure(['data' => ['items', 'customer', 'location', 'user']]);
+            ->assertJsonStructure(['data' => [
+                'reference_no',
+                'date',
+                'customer',
+                'customer_phone',
+                'customer_address',
+                'location',
+                'seller',
+                'payment_type',
+                'total',
+                'total_raw',
+                'paid',
+                'paid_raw',
+                'remaining',
+                'remaining_raw',
+                'items',
+            ]]);
     }
 
     private function seedStock(int $variantId, int $locationId, User $user, float $qty): void

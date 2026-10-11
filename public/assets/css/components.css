@@ -366,17 +366,43 @@
 }
 
 .auth-screen {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.25rem;
   padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(29, 78, 216, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgba(4, 120, 87, 0.14), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  overflow: hidden;
+}
+
+.auth-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(21, 32, 51, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(21, 32, 51, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, #000 40%, transparent 75%);
+  pointer-events: none;
 }
 
 .auth-card {
+  position: relative;
   width: 100%;
   max-width: 26rem;
+  border: 1px solid rgba(21, 32, 51, 0.06);
+  box-shadow: 0 24px 60px rgba(21, 32, 51, 0.12);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.auth-card .card-body {
+  padding: 1.75rem !important;
 }
 
 .mbms-chip {

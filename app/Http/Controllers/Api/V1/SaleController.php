@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sale\StoreSaleRequest;
+use App\Http\Resources\V1\SaleResource;
 use App\Models\Sale;
 use App\Services\Sale\SaleService;
 use App\Support\ApiResponse;
@@ -16,9 +17,7 @@ use Throwable;
 
 class SaleController extends Controller
 {
-    public function __construct(private readonly SaleService $saleService)
-    {
-    }
+    public function __construct(private readonly SaleService $saleService) {}
 
     public function index(Request $request): JsonResponse
     {
@@ -68,10 +67,16 @@ class SaleController extends Controller
         return ApiResponse::success($sale, 'Sale created', 201);
     }
 
+    /**
+     * Returns the sale in the shape expected by public/pages/bill.html
+     * (customer/location/user names, *_raw numeric fields, flat item list).
+     */
     public function show(Sale $sale): JsonResponse
     {
+        $sale->load(['items.variant.product', 'customer', 'location', 'user']);
+
         return ApiResponse::success(
-            $sale->load(['items.variant.product', 'customer', 'location', 'user'])
+            SaleResource::make($sale)->resolve()
         );
     }
 }
